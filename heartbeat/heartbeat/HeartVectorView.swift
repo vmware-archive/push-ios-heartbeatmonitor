@@ -93,11 +93,14 @@ class HeartVectorView: UIView {
     
     func animateControlPoints() {
         let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
-
+        
         animation.fromValue = 1.5
         animation.toValue = 1.0
         animation.duration = 0.5
         
+        let animationTiming : CAMediaTimingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.8, 1, 1)
+        animation.timingFunction = animationTiming
+
         animation.removedOnCompletion = true
         animation.fillMode = kCAFillModeForwards
         
