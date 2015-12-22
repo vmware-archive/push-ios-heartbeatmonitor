@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PCFPush
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Register for push notifications with the Apple Push Notification Service (APNS).
+        //
+        // On iOS 8.0+ you need to provide your user notification settings by calling
+        // [UIApplication.sharedDelegate registerUserNotificationSettings:] and then
+        // [UIApplication.sharedDelegate registerForRemoteNotifications];
+        //
+        // On < iOS 8.0 you need to provide your remote notification settings by calling
+        // [UIApplication.sharedDelegate registerForRemoteNotificationTypes:].  There are no
+        // user notification settings on < iOS 8.0.
+        //
+        // If this line gives you a compiler error then you need to make sure you have updated
+        // your Xcode to at least Xcode 6.0:
+        //
+        if (application.respondsToSelector(Selector("registerUserNotificationSettings:"))) {
+            
+            // iOS 8.0 +
+            let notificationTypes : UIUserNotificationType = [.Alert, .Badge, .Sound]
+            let settings : UIUserNotificationSettings = UIUserNotificationSettings.init(forTypes: notificationTypes, categories: nil);
+            application.registerUserNotificationSettings(settings);
+        
+        } else {
+            
+            // < iOS 8.0
+            let notificationTypes : UIRemoteNotificationType = [.Alert, .Badge, .Sound]
+            application.registerForRemoteNotificationTypes(notificationTypes);
+        }
+        
         return true
     }
 
@@ -41,6 +70,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        NSLog("User Notification Settings")
+        application.registerForRemoteNotifications();
+    }
+    
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        NSLog("Handling Action")
+    }
+    // This method is called when APNS registration succeeds.
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        NSLog("APNS registration succeeded!");
+    
+        // APNS registration has succeeded and provided the APNS device token.  Start registration with PCF Push
+        // Notification Service and pass it the APNS device token.
+        //
+        // Required: Create a file in your project called "Pivotal.plist" in order to provide parameters for registering with
+        // PCF Push Notification Service
+        //
+        // Optional: You can also provide a set of tags to subscribe to.
+        //
+        // Optional: You can also provide a device alias.  The use of this device alias is application-specific.  In general,
+        // you can pass the device name.
+        //
+        // Optional: You can pass blocks to get callbacks after registration succeeds or fails.
+        
+        
+        let deviceAlias = UIDevice.currentDevice().name
+        
+        
+        var myDict: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("Info", ofType: "plist") {
+            myDict = NSDictionary(contentsOfFile: path)
+        }
+        
+        var subscribedTags: Set<String>?
+        if let dict = myDict {
+            if let heartbeatTag : String = dict["Heartbeat Tag"] as? String {
+                subscribedTags = [heartbeatTag]
+                NSLog("\(String(subscribedTags!.first as String!)) is the heartbeat tag")
+            } else {
+                NSLog("Heartbeat Tag is nil")
+            }
+        }
+        NSLog("Device Alias: \(deviceAlias)")
+        NSLog("Device Token: \(deviceToken)")
+        NSLog("Subscribed Tags: \(subscribedTags)")
+        
+        if subscribedTags != nil {
+            PCFPush.registerForPCFPushNotificationsWithDeviceToken(deviceToken, tags: subscribedTags, deviceAlias: deviceAlias, areGeofencesEnabled: false, success: nil, failure: nil)
+        }
+   
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError){
+        NSLog("Failed to register!")
+        NSLog(error.localizedDescription)
+    }
 
 }
 

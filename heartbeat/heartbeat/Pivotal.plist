@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>pivotal.push.serviceUrl</key>
+	<string>https://push-api.hellfire.cf-app.com</string>
+	<key>pivotal.push.platformUuidDevelopment</key>
+	<string>b45fac82-41b9-479f-b187-e54cd70c3b19</string>
+	<key>pivotal.push.platformSecretDevelopment</key>
+	<string>be69adec-dc11-4745-a1df-ed1d3b810a86</string>
+	<key>pivotal.push.platformUuidProduction</key>
+	<string>b45fac82-41b9-479f-b187-e54cd70c3b19</string>
+	<key>pivotal.push.platformSecretProduction</key>
+	<string>be69adec-dc11-4745-a1df-ed1d3b810a86</string>
+	<key>pivotal.push.sslCertValidationMode</key>
+	<string>trustall</string>
+</dict>
+</plist>
