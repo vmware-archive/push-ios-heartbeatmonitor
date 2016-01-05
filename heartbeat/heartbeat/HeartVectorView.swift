@@ -91,6 +91,11 @@ class HeartVectorView: UIView {
     
     //Animation
     
+    func beatHeart() {
+        startUpdateLoop()
+        animateControlPoints()
+    }
+    
     func animateControlPoints() {
         let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
         
@@ -114,8 +119,7 @@ class HeartVectorView: UIView {
     //UI Interaction
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        startUpdateLoop()
-        animateControlPoints()
+        beatHeart()
     }
     
     //Update Functions

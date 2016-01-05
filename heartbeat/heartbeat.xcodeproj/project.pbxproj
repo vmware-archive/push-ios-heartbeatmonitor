@@ -16,6 +16,7 @@
 		F198C7211C2850B5001E84CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F198C71F1C2850B5001E84CC /* LaunchScreen.storyboard */; };
 		F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7281C299784001E84CC /* HeartVectorView.swift */; settings = {ASSET_TAGS = (); }; };
 		F198C72B1C29CB91001E84CC /* PathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C72A1C29CB91001E84CC /* PathHelper.swift */; settings = {ASSET_TAGS = (); }; };
+		F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */; settings = {ASSET_TAGS = (); }; };
 		F1FAC0451C3AD300007393EC /* Pivotal.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1FAC0441C3AD300007393EC /* Pivotal.plist */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		F198C7221C2850B5001E84CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F198C7281C299784001E84CC /* HeartVectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartVectorView.swift; path = heartbeat/HeartVectorView.swift; sourceTree = "<group>"; };
 		F198C72A1C29CB91001E84CC /* PathHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathHelper.swift; sourceTree = "<group>"; };
+		F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatInfoView.swift; sourceTree = "<group>"; };
 		F1FAC0441C3AD300007393EC /* Pivotal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pivotal.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				F198C7281C299784001E84CC /* HeartVectorView.swift */,
+				F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */,
 				F198C72A1C29CB91001E84CC /* PathHelper.swift */,
 				F198C7151C2850B5001E84CC /* heartbeat */,
 				F198C7141C2850B5001E84CC /* Products */,
@@ -174,6 +177,7 @@
 				F198C7191C2850B5001E84CC /* ViewController.swift in Sources */,
 				F198C7171C2850B5001E84CC /* AppDelegate.swift in Sources */,
 				F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */,
+				F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

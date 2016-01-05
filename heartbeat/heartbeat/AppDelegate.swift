@@ -129,5 +129,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog(error.localizedDescription)
     }
 
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]){
+        self.handleRemoteNotification(userInfo)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void){
+        self.handleRemoteNotification(userInfo)
+        PCFPush.didReceiveRemoteNotification(userInfo, completionHandler: {(wasIgnored: Bool, fetchResult: UIBackgroundFetchResult, error: NSError!) -> Void in
+                completionHandler(fetchResult)
+            }
+        )
+    }
+    
+    func handleRemoteNotification(userInfo: [NSObject : AnyObject]?) {
+        if (userInfo != nil) {
+            NSLog("Received push message: \(userInfo!)");
+        } else {
+            NSLog("Received push message (no userInfo).");
+        }
+        
+        let notification = NSNotification(name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
+        NSNotificationCenter.defaultCenter().postNotification(notification)
+    }
+/*
+    // This method is called when APNS sends a push notification to the application.
+    - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+    {
+    [self handleRemoteNotification:userInfo];
+    }
+    
+    // This method is called when APNS sends a push notification to the application when the application is
+    // not running (e.g.: in the background).  Requires the application to have the Remote Notification Background Mode Capability.
+    - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+    {
+    [self handleRemoteNotification:userInfo];
+    
+    // IMPORTANT: Inform PCF Push Notification Service that this message has been received.
+    [PCFPush didReceiveRemoteNotification:userInfo completionHandler:^(BOOL wasIgnored, UIBackgroundFetchResult fetchResult, NSError *error) {
+    
+    if (completionHandler) {
+    completionHandler(fetchResult);
+    }
+    }];
+    }
+    
+    // This method is called when the user touches one of the actions in a notification when the application is
+    // not running (e.g.: in the background).  iOS 8.0+ only.
+    - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+    {
+    NSLog(@"Handling action %@ for message %@", identifier, userInfo);
+    if (completionHandler) {
+    completionHandler();
+    }
+    }
+    
+    - (void) handleRemoteNotification:(NSDictionary*) userInfo
+    {
+    if (userInfo) {
+    NSLog(@"Received push message: %@", userInfo);
+    } else {
+    NSLog(@"Received push message (no userInfo).");
+    }
+    }
+*/
 }
 
