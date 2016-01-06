@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HeartbeatViewController: UIViewController {
     
     var heartView: HeartVectorView!
     var infoView: HeartbeatInfoView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = "PCF Push Heartbeat Monitor"
         
         let screenRect : CGRect = UIScreen.mainScreen().bounds
         //Due to orientation weirdness, this can be wrong unless you check
@@ -24,9 +26,10 @@ class ViewController: UIViewController {
         self.heartView = HeartVectorView.init(frame: CGRect(x: 0.0, y: 0.0, width: 200, height: 200))
         self.heartView.center = container.center
         container.addSubview(self.heartView)
+        container.backgroundColor = UIColor.whiteColor()
         view.addSubview(container)
         
-        self.infoView = HeartbeatInfoView.init(frame: CGRect(x: 10.0, y: self.heartView.frame.maxY + 100, width: container.frame.width-20.0, height: 100.0))
+        self.infoView = HeartbeatInfoView.init(frame: CGRect(x: 0.0, y: screenHeight - 100.0, width: container.frame.width, height: 100.0))
         container.addSubview(self.infoView)
         
         NSNotificationCenter.defaultCenter()
@@ -47,13 +50,5 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    func incrementHeartbeatInfo() {
-//        if (self.info != nil) {
-//            NSLog("calling increment()")
-//            self.info.increment()
-//        }
-//        NSLog("Called incrementHeartbeatInfo()")
-//    }
-
 }
 

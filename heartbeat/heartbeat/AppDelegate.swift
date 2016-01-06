@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -44,6 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let notificationTypes : UIRemoteNotificationType = [.Alert, .Badge, .Sound]
             application.registerForRemoteNotificationTypes(notificationTypes);
         }
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        let mainViewController = HeartbeatViewController()
+        let mainNavController = UINavigationController.init(rootViewController: mainViewController)
+
+        mainNavController.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green: 167.0/255.0, blue: 157.0/255.0, alpha: 1.0)
+        mainNavController.navigationBar.barStyle = .Black
+        
+        window?.rootViewController = mainNavController
+        window?.makeKeyAndVisible()
+        
         
         return true
     }
@@ -142,14 +153,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handleRemoteNotification(userInfo: [NSObject : AnyObject]?) {
-        if (userInfo != nil) {
-            NSLog("Received push message: \(userInfo!)");
+        if let userDict = userInfo! as NSDictionary? {
+            if (userDict["pcf.push.heartbeat.sentAt"] != nil){
+                NSLog("Received heartbeat push: \(userInfo!)")
+                let notification = NSNotification(name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
+                NSNotificationCenter.defaultCenter().postNotification(notification)
+            } else {
+                NSLog("Received non-heartbeat push: \(userInfo!)")
+            }
         } else {
-            NSLog("Received push message (no userInfo).");
+            NSLog("Received push message (no userInfo).")
         }
-        
-        let notification = NSNotification(name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
-        NSNotificationCenter.defaultCenter().postNotification(notification)
     }
 /*
     // This method is called when APNS sends a push notification to the application.

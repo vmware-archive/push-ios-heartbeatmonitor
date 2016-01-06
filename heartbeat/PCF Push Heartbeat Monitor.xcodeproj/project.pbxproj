@@ -10,13 +10,14 @@
 		F1421F8B1C3AE8A9004E8E7C /* PCFPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1421F891C3AE8A3004E8E7C /* PCFPush.framework */; };
 		F1421F8C1C3AE8A9004E8E7C /* PCFPush.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F1421F891C3AE8A3004E8E7C /* PCFPush.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F198C7171C2850B5001E84CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7161C2850B5001E84CC /* AppDelegate.swift */; };
-		F198C7191C2850B5001E84CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7181C2850B5001E84CC /* ViewController.swift */; };
-		F198C71C1C2850B5001E84CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F198C71A1C2850B5001E84CC /* Main.storyboard */; };
+		F198C7191C2850B5001E84CC /* HeartbeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7181C2850B5001E84CC /* HeartbeatViewController.swift */; };
 		F198C71E1C2850B5001E84CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F198C71D1C2850B5001E84CC /* Assets.xcassets */; };
-		F198C7211C2850B5001E84CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F198C71F1C2850B5001E84CC /* LaunchScreen.storyboard */; };
 		F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7281C299784001E84CC /* HeartVectorView.swift */; settings = {ASSET_TAGS = (); }; };
 		F198C72B1C29CB91001E84CC /* PathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C72A1C29CB91001E84CC /* PathHelper.swift */; settings = {ASSET_TAGS = (); }; };
 		F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */; settings = {ASSET_TAGS = (); }; };
+		F1E76EE11C3D6D2E000A40E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		F1E76EE31C3D7AA6000A40E5 /* HeartbeatData.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1E76EE21C3D7AA6000A40E5 /* HeartbeatData.plist */; settings = {ASSET_TAGS = (); }; };
+		F1E76EE61C3DBA1F000A40E5 /* HeartbeatViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E76EE51C3DBA1F000A40E5 /* HeartbeatViewControllerTest.swift */; settings = {ASSET_TAGS = (); }; };
 		F1FAC0451C3AD300007393EC /* Pivotal.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1FAC0441C3AD300007393EC /* Pivotal.plist */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -36,16 +37,17 @@
 
 /* Begin PBXFileReference section */
 		F1421F891C3AE8A3004E8E7C /* PCFPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PCFPush.framework; path = heartbeat/PCFPush.framework; sourceTree = "<group>"; };
-		F198C7131C2850B5001E84CC /* heartbeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = heartbeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F198C7131C2850B5001E84CC /* PCF Push Heartbeat Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PCF Push Heartbeat Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F198C7161C2850B5001E84CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F198C7181C2850B5001E84CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F198C71B1C2850B5001E84CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F198C7181C2850B5001E84CC /* HeartbeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartbeatViewController.swift; sourceTree = "<group>"; };
 		F198C71D1C2850B5001E84CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F198C7201C2850B5001E84CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F198C7221C2850B5001E84CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F198C7281C299784001E84CC /* HeartVectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartVectorView.swift; path = heartbeat/HeartVectorView.swift; sourceTree = "<group>"; };
+		F198C7281C299784001E84CC /* HeartVectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartVectorView.swift; sourceTree = "<group>"; };
 		F198C72A1C29CB91001E84CC /* PathHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathHelper.swift; sourceTree = "<group>"; };
-		F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatInfoView.swift; sourceTree = "<group>"; };
+		F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartbeatInfoView.swift; path = ../HeartbeatInfoView.swift; sourceTree = "<group>"; };
+		F1E76EE01C3D6D2E000A40E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F1E76EE21C3D7AA6000A40E5 /* HeartbeatData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HeartbeatData.plist; sourceTree = "<group>"; };
+		F1E76EE51C3DBA1F000A40E5 /* HeartbeatViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatViewControllerTest.swift; sourceTree = "<group>"; };
 		F1FAC0441C3AD300007393EC /* Pivotal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pivotal.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,9 +66,8 @@
 		F198C70A1C2850B5001E84CC = {
 			isa = PBXGroup;
 			children = (
-				F198C7281C299784001E84CC /* HeartVectorView.swift */,
-				F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */,
 				F198C72A1C29CB91001E84CC /* PathHelper.swift */,
+				F1E76EE41C3DAC22000A40E5 /* Tests */,
 				F198C7151C2850B5001E84CC /* heartbeat */,
 				F198C7141C2850B5001E84CC /* Products */,
 				F1421F891C3AE8A3004E8E7C /* PCFPush.framework */,
@@ -76,7 +77,7 @@
 		F198C7141C2850B5001E84CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F198C7131C2850B5001E84CC /* heartbeat.app */,
+				F198C7131C2850B5001E84CC /* PCF Push Heartbeat Monitor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,23 +85,42 @@
 		F198C7151C2850B5001E84CC /* heartbeat */ = {
 			isa = PBXGroup;
 			children = (
+				F1E76EDE1C3D61DD000A40E5 /* Views */,
 				F198C7161C2850B5001E84CC /* AppDelegate.swift */,
-				F198C7181C2850B5001E84CC /* ViewController.swift */,
-				F198C71A1C2850B5001E84CC /* Main.storyboard */,
+				F198C7181C2850B5001E84CC /* HeartbeatViewController.swift */,
 				F198C71D1C2850B5001E84CC /* Assets.xcassets */,
-				F198C71F1C2850B5001E84CC /* LaunchScreen.storyboard */,
+				F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */,
 				F198C7221C2850B5001E84CC /* Info.plist */,
 				F1FAC0441C3AD300007393EC /* Pivotal.plist */,
+				F1E76EE21C3D7AA6000A40E5 /* HeartbeatData.plist */,
 			);
+			path = heartbeat;
+			sourceTree = "<group>";
+		};
+		F1E76EDE1C3D61DD000A40E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F198C7281C299784001E84CC /* HeartVectorView.swift */,
+				F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F1E76EE41C3DAC22000A40E5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F1E76EE51C3DBA1F000A40E5 /* HeartbeatViewControllerTest.swift */,
+			);
+			name = Tests;
 			path = heartbeat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F198C7121C2850B5001E84CC /* heartbeat */ = {
+		F198C7121C2850B5001E84CC /* PCF Push Heartbeat Monitor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F198C7251C2850B5001E84CC /* Build configuration list for PBXNativeTarget "heartbeat" */;
+			buildConfigurationList = F198C7251C2850B5001E84CC /* Build configuration list for PBXNativeTarget "PCF Push Heartbeat Monitor" */;
 			buildPhases = (
 				F198C70F1C2850B5001E84CC /* Sources */,
 				F198C7101C2850B5001E84CC /* Frameworks */,
@@ -111,9 +131,9 @@
 			);
 			dependencies = (
 			);
-			name = heartbeat;
+			name = "PCF Push Heartbeat Monitor";
 			productName = heartbeat;
-			productReference = F198C7131C2850B5001E84CC /* heartbeat.app */;
+			productReference = F198C7131C2850B5001E84CC /* PCF Push Heartbeat Monitor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,7 +156,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F198C70E1C2850B5001E84CC /* Build configuration list for PBXProject "heartbeat" */;
+			buildConfigurationList = F198C70E1C2850B5001E84CC /* Build configuration list for PBXProject "PCF Push Heartbeat Monitor" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -149,7 +169,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F198C7121C2850B5001E84CC /* heartbeat */,
+				F198C7121C2850B5001E84CC /* PCF Push Heartbeat Monitor */,
 			);
 		};
 /* End PBXProject section */
@@ -159,10 +179,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F198C7211C2850B5001E84CC /* LaunchScreen.storyboard in Resources */,
+				F1E76EE11C3D6D2E000A40E5 /* LaunchScreen.storyboard in Resources */,
 				F198C71E1C2850B5001E84CC /* Assets.xcassets in Resources */,
 				F1FAC0451C3AD300007393EC /* Pivotal.plist in Resources */,
-				F198C71C1C2850B5001E84CC /* Main.storyboard in Resources */,
+				F1E76EE31C3D7AA6000A40E5 /* HeartbeatData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +194,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F198C72B1C29CB91001E84CC /* PathHelper.swift in Sources */,
-				F198C7191C2850B5001E84CC /* ViewController.swift in Sources */,
+				F1E76EE61C3DBA1F000A40E5 /* HeartbeatViewControllerTest.swift in Sources */,
+				F198C7191C2850B5001E84CC /* HeartbeatViewController.swift in Sources */,
 				F198C7171C2850B5001E84CC /* AppDelegate.swift in Sources */,
 				F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */,
 				F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */,
@@ -184,18 +205,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F198C71A1C2850B5001E84CC /* Main.storyboard */ = {
+		F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F198C71B1C2850B5001E84CC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F198C71F1C2850B5001E84CC /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F198C7201C2850B5001E84CC /* Base */,
+				F1E76EE01C3D6D2E000A40E5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -308,7 +321,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -329,7 +342,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -337,7 +350,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F198C70E1C2850B5001E84CC /* Build configuration list for PBXProject "heartbeat" */ = {
+		F198C70E1C2850B5001E84CC /* Build configuration list for PBXProject "PCF Push Heartbeat Monitor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F198C7231C2850B5001E84CC /* Debug */,
@@ -346,7 +359,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F198C7251C2850B5001E84CC /* Build configuration list for PBXNativeTarget "heartbeat" */ = {
+		F198C7251C2850B5001E84CC /* Build configuration list for PBXNativeTarget "PCF Push Heartbeat Monitor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F198C7261C2850B5001E84CC /* Debug */,
