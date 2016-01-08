@@ -154,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func handleRemoteNotification(userInfo: [NSObject : AnyObject]?) {
         if let userDict = userInfo! as NSDictionary? {
-            if (userDict["pcf.push.heartbeat.sentAt"] != nil){
+            if (userDict["pcf.push.heartbeat.sentToDeviceAt"] != nil){
                 NSLog("Received heartbeat push: \(userInfo!)")
                 let notification = NSNotification(name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
                 NSNotificationCenter.defaultCenter().postNotification(notification)
