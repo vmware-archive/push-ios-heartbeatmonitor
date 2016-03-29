@@ -13,11 +13,13 @@ class HeartbeatInfoView: UIView {
     var numHeartbeats = 0
     var lastHeartbeat = NSDate.init(timeIntervalSince1970: 0)
     var url : String = ""
+    var updateTimer = NSTimer()
     
     let numHeartbeatsLabel = UILabel.init()
     let dateFormatter = NSDateFormatter.init()
     let lastHeartbeatLabel = UILabel.init()
     let urlLabel = UILabel.init()
+    let errorTextView = UITextView.init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +28,7 @@ class HeartbeatInfoView: UIView {
         self.setupView(frame)
         readHeartbeatData()
         updateLastHeartbeatText()
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateLastHeartbeatText", userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateLastHeartbeatText", userInfo: nil, repeats: true)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,6 +60,13 @@ class HeartbeatInfoView: UIView {
         urlLabel.textAlignment = NSTextAlignment.Center
         getServiceUrl()
         self.addSubview(urlLabel)
+        
+        errorTextView.frame = CGRect(origin: CGPoint(x: 0.0, y: numHeartbeatsLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight*3))
+        errorTextView.font = errorTextView.font?.fontWithSize(fontSize)
+        errorTextView.textColor = textColor
+        errorTextView.textAlignment = NSTextAlignment.Center
+        errorTextView.hidden = true
+        self.addSubview(errorTextView)
     }
     
     func didReceiveHeartbeat() {
@@ -85,7 +94,6 @@ class HeartbeatInfoView: UIView {
         lastHeartbeatLabel.text = heartbeatText
     }
     
-    
     func readHeartbeatData(){
         if let myDict: NSDictionary = dictionaryFromDocumentsPlist("/HeartbeatData"){
             numHeartbeats = myDict["Count"] as! Int
@@ -100,7 +108,6 @@ class HeartbeatInfoView: UIView {
         writeDictionaryToPlist("/HeartbeatData", dict: myDict)
     }
     
-    
     func getServiceUrl(){
         let myDict: NSDictionary? = dictionaryFromBundledPlist("Pivotal")
         if (myDict != nil){
@@ -111,7 +118,6 @@ class HeartbeatInfoView: UIView {
                 urlLabel.text = "Service url was empty"
             }
         }
-        
     }
     
     func dictionaryFromBundledPlist(filename: String) -> NSDictionary? {
@@ -154,7 +160,15 @@ class HeartbeatInfoView: UIView {
         } else {
             NSLog("Failed to write data")
         }
-    
     }
 
+    func didReceiveError(notification: NSNotification) {
+        NSLog("didReceiveError: \(notification)")
+        numHeartbeatsLabel.text = notification.userInfo!["message"] as? String
+        errorTextView.text = (notification.userInfo!["error"] as? NSError)?.localizedDescription
+        errorTextView.hidden = false
+        lastHeartbeatLabel.hidden = true
+        urlLabel.hidden = true
+        updateTimer.invalidate()
+    }
 }

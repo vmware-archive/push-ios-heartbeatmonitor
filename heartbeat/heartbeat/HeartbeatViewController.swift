@@ -39,6 +39,7 @@ class HeartbeatViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self.infoView, selector: "didReceiveHeartbeat", name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self.heartView, selector: "beatHeart", name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self.infoView, selector: "didReceiveError:", name: "io.pivotal.ios.push.heartbeatmonitorReceiveError", object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
