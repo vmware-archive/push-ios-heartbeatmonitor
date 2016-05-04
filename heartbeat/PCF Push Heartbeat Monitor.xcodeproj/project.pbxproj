@@ -12,11 +12,11 @@
 		F198C7171C2850B5001E84CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7161C2850B5001E84CC /* AppDelegate.swift */; };
 		F198C7191C2850B5001E84CC /* HeartbeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7181C2850B5001E84CC /* HeartbeatViewController.swift */; };
 		F198C71E1C2850B5001E84CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F198C71D1C2850B5001E84CC /* Assets.xcassets */; };
-		F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7281C299784001E84CC /* HeartVectorView.swift */; settings = {ASSET_TAGS = (); }; };
-		F198C72B1C29CB91001E84CC /* PathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C72A1C29CB91001E84CC /* PathHelper.swift */; settings = {ASSET_TAGS = (); }; };
-		F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */; settings = {ASSET_TAGS = (); }; };
-		F1E76EE11C3D6D2E000A40E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
-		F1FAC0451C3AD300007393EC /* Pivotal.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1FAC0441C3AD300007393EC /* Pivotal.plist */; settings = {ASSET_TAGS = (); }; };
+		F198C7291C299784001E84CC /* HeartVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C7281C299784001E84CC /* HeartVectorView.swift */; };
+		F198C72B1C29CB91001E84CC /* PathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F198C72A1C29CB91001E84CC /* PathHelper.swift */; };
+		F1E76EDD1C3C47E3000A40E5 /* HeartbeatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E76EDC1C3C47E3000A40E5 /* HeartbeatInfoView.swift */; };
+		F1E76EE11C3D6D2E000A40E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */; };
+		F1FAC0451C3AD300007393EC /* Pivotal.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1FAC0441C3AD300007393EC /* Pivotal.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,7 +132,6 @@
 				TargetAttributes = {
 					F198C7121C2850B5001E84CC = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = BVZYXK966R;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
