@@ -45,7 +45,7 @@ class HeartbeatInfoView: UIView {
         numHeartbeatsLabel.textColor = textColor
         numHeartbeatsLabel.text = "Received \(numHeartbeats) heartbeats."
         numHeartbeatsLabel.textAlignment = NSTextAlignment.Center
-        numHeartbeatsLabel.accessibilityLabel = "numHeartbeatsLabel"
+        numHeartbeatsLabel.accessibilityIdentifier = "numHeartbeatsLabel"
         self.addSubview(numHeartbeatsLabel)
         
         lastHeartbeatLabel.frame = CGRect(origin: CGPoint(x: 0.0, y: numHeartbeatsLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight))
@@ -53,14 +53,14 @@ class HeartbeatInfoView: UIView {
         lastHeartbeatLabel.textColor = textColor
         lastHeartbeatLabel.text = "Last Heartbeat received \(dateFormatter.stringFromDate(lastHeartbeat))."
         lastHeartbeatLabel.textAlignment = NSTextAlignment.Center
-        lastHeartbeatLabel.accessibilityLabel = "lastHeartbeatLabel"
+        lastHeartbeatLabel.accessibilityIdentifier = "lastHeartbeatLabel"
         self.addSubview(lastHeartbeatLabel)
         
         urlLabel.frame = CGRect(origin: CGPoint(x: 0.0, y: lastHeartbeatLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight))
         urlLabel.font = urlLabel.font.fontWithSize(fontSize)
         urlLabel.textColor = textColor
         urlLabel.textAlignment = NSTextAlignment.Center
-        urlLabel.accessibilityLabel = "urlLabel"
+        urlLabel.accessibilityIdentifier = "urlLabel"
         getServiceUrl()
         self.addSubview(urlLabel)
         
@@ -69,7 +69,7 @@ class HeartbeatInfoView: UIView {
         errorTextView.textColor = textColor
         errorTextView.textAlignment = NSTextAlignment.Center
         errorTextView.hidden = true
-        errorTextView.accessibilityLabel = "errorTextView"
+        errorTextView.accessibilityIdentifier = "errorTextView"
         self.addSubview(errorTextView)
     }
     
