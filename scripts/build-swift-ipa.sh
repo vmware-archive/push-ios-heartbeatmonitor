@@ -19,7 +19,7 @@ if [ "$ENV" != "" ]; then
     \\                       <key>push-api.${ENV}.cf-app.com</key>
     }" heartbeat/heartbeat/Info.plist
 
-  # Replace the environment name in the Pivotal file
+  # Replace the environment name in the Pivotal.plist file
   sed -i "" "/<key>pivotal.push.serviceUrl<\\/key>/{ # Find the NSExceptionDomains key
     # Skip to the next line
     n
