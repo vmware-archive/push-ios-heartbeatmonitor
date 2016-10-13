@@ -5,7 +5,7 @@
 	<key>pivotal.push.areAnalyticsEnabled</key>
 	<true/>
 	<key>pivotal.push.serviceUrl</key>
-	<string>https://push-api.twix.cf-app.com</string>
+	<string>https://push-api.your.env.com</string>
 	<key>pivotal.push.platformUuidDevelopment</key>
 	<string>82c0b218-84d3-40f3-bc89-6a962c76285e</string>
 	<key>pivotal.push.platformSecretDevelopment</key>
