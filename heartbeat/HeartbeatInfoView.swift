@@ -23,64 +23,64 @@ import UIKit
 class HeartbeatInfoView: UIView {
     
     var numHeartbeats = 0
-    var lastHeartbeat = NSDate.init(timeIntervalSince1970: 0)
+    var lastHeartbeat = Date.init(timeIntervalSince1970: 0)
     var url : String = ""
-    var updateTimer = NSTimer()
+    var updateTimer = Timer()
     
     let numHeartbeatsLabel = UILabel.init()
-    let dateFormatter = NSDateFormatter.init()
+    let dateFormatter = DateFormatter.init()
     let lastHeartbeatLabel = UILabel.init()
     let urlLabel = UILabel.init()
     let errorTextView = UITextView.init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = .short
         self.setupView(frame)
         readHeartbeatData()
         updateLastHeartbeatText()
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateLastHeartbeatText", userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(HeartbeatInfoView.updateLastHeartbeatText), userInfo: nil, repeats: true)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(frame: CGRect){
+    func setupView(_ frame: CGRect){
         let labelHeight : CGFloat = 20.0
         let fontSize : CGFloat = 14.0
-        let textColor = UIColor.grayColor()
+        let textColor = UIColor.gray
         
-        numHeartbeatsLabel.frame = CGRect(origin: CGPointZero, size: CGSize(width: frame.width, height: labelHeight))
-        numHeartbeatsLabel.font = numHeartbeatsLabel.font.fontWithSize(fontSize)
+        numHeartbeatsLabel.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: frame.width, height: labelHeight))
+        numHeartbeatsLabel.font = numHeartbeatsLabel.font.withSize(fontSize)
         numHeartbeatsLabel.textColor = textColor
         numHeartbeatsLabel.text = "Received \(numHeartbeats) heartbeats."
-        numHeartbeatsLabel.textAlignment = NSTextAlignment.Center
+        numHeartbeatsLabel.textAlignment = NSTextAlignment.center
         numHeartbeatsLabel.accessibilityIdentifier = "numHeartbeatsLabel"
         self.addSubview(numHeartbeatsLabel)
         
         lastHeartbeatLabel.frame = CGRect(origin: CGPoint(x: 0.0, y: numHeartbeatsLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight))
-        lastHeartbeatLabel.font = lastHeartbeatLabel.font.fontWithSize(fontSize)
+        lastHeartbeatLabel.font = lastHeartbeatLabel.font.withSize(fontSize)
         lastHeartbeatLabel.textColor = textColor
-        lastHeartbeatLabel.text = "Last Heartbeat received \(dateFormatter.stringFromDate(lastHeartbeat))."
-        lastHeartbeatLabel.textAlignment = NSTextAlignment.Center
+        lastHeartbeatLabel.text = "Last Heartbeat received \(dateFormatter.string(from: lastHeartbeat))."
+        lastHeartbeatLabel.textAlignment = NSTextAlignment.center
         lastHeartbeatLabel.accessibilityIdentifier = "lastHeartbeatLabel"
         self.addSubview(lastHeartbeatLabel)
         
         urlLabel.frame = CGRect(origin: CGPoint(x: 0.0, y: lastHeartbeatLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight))
-        urlLabel.font = urlLabel.font.fontWithSize(fontSize)
+        urlLabel.font = urlLabel.font.withSize(fontSize)
         urlLabel.textColor = textColor
-        urlLabel.textAlignment = NSTextAlignment.Center
+        urlLabel.textAlignment = NSTextAlignment.center
         urlLabel.accessibilityIdentifier = "urlLabel"
         getServiceUrl()
         self.addSubview(urlLabel)
         
         errorTextView.frame = CGRect(origin: CGPoint(x: 0.0, y: numHeartbeatsLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight*3))
-        errorTextView.font = errorTextView.font?.fontWithSize(fontSize)
+        errorTextView.font = errorTextView.font?.withSize(fontSize)
         errorTextView.textColor = textColor
-        errorTextView.textAlignment = NSTextAlignment.Center
-        errorTextView.hidden = true
+        errorTextView.textAlignment = NSTextAlignment.center
+        errorTextView.isHidden = true
         errorTextView.accessibilityIdentifier = "errorTextView"
         self.addSubview(errorTextView)
     }
@@ -93,7 +93,7 @@ class HeartbeatInfoView: UIView {
     func increment(){
         NSLog("Incrementing heartbeats")
         numHeartbeats += 1
-        lastHeartbeat = NSDate()
+        lastHeartbeat = Date()
         persistHeartbeatData(numHeartbeats, lastReceivedTimestamp: lastHeartbeat.timeIntervalSince1970)
         updateLastHeartbeatText()
     }
@@ -101,11 +101,11 @@ class HeartbeatInfoView: UIView {
     func updateLastHeartbeatText(){
         numHeartbeatsLabel.text = "Received \(numHeartbeats) heartbeats."
         var heartbeatText = "Waiting for first heartbeat..."
-        let timeSince : NSTimeInterval = abs(lastHeartbeat.timeIntervalSinceNow)
+        let timeSince : TimeInterval = abs(lastHeartbeat.timeIntervalSinceNow)
         if (timeSince < 60) {
             heartbeatText = "Last heartbeat was moments ago."
         } else if (numHeartbeats > 0) {
-            heartbeatText = "Last heartbeat was \(dateFormatter.stringFromDate(lastHeartbeat))."
+            heartbeatText = "Last heartbeat was \(dateFormatter.string(from: lastHeartbeat))."
         }
         lastHeartbeatLabel.text = heartbeatText
     }
@@ -113,14 +113,14 @@ class HeartbeatInfoView: UIView {
     func readHeartbeatData(){
         if let myDict: NSDictionary = dictionaryFromDocumentsPlist("/HeartbeatData"){
             numHeartbeats = myDict["Count"] as! Int
-            lastHeartbeat = NSDate(timeIntervalSince1970: myDict["LastReceivedTimestamp"] as! NSTimeInterval)
+            lastHeartbeat = Date(timeIntervalSince1970: myDict["LastReceivedTimestamp"] as! TimeInterval)
         } else {
             NSLog("No existing Heartbeat Data found")
         }
     }
     
-    func persistHeartbeatData(count: Int, lastReceivedTimestamp: NSTimeInterval) {
-        let myDict: NSDictionary = NSDictionary.init(objects: [count, lastReceivedTimestamp], forKeys: ["Count","LastReceivedTimestamp"])
+    func persistHeartbeatData(_ count: Int, lastReceivedTimestamp: TimeInterval) {
+        let myDict: NSDictionary = NSDictionary.init(objects: [count, lastReceivedTimestamp], forKeys: ["Count" as NSCopying,"LastReceivedTimestamp" as NSCopying])
         writeDictionaryToPlist("/HeartbeatData", dict: myDict)
     }
     
@@ -136,21 +136,21 @@ class HeartbeatInfoView: UIView {
         }
     }
     
-    func dictionaryFromBundledPlist(filename: String) -> NSDictionary? {
+    func dictionaryFromBundledPlist(_ filename: String) -> NSDictionary? {
         var myDict: NSDictionary?
-        if let path = NSBundle.mainBundle().pathForResource(filename, ofType: "plist") {
+        if let path = Bundle.main.path(forResource: filename, ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         
         return myDict
     }
     
-    func dictionaryFromDocumentsPlist(filename: String) -> NSDictionary? {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+    func dictionaryFromDocumentsPlist(_ filename: String) -> NSDictionary? {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         var path : String?
         if (paths.count > 0){
             let documentsDirectory = paths[0] as! String
-            path = documentsDirectory.stringByAppendingString("\(filename).plist")
+            path = documentsDirectory + "\(filename).plist"
         }
         
         var myDict: NSDictionary?
@@ -161,16 +161,16 @@ class HeartbeatInfoView: UIView {
         return myDict
     }
     
-    func writeDictionaryToPlist(filename: String, dict: NSDictionary) {
+    func writeDictionaryToPlist(_ filename: String, dict: NSDictionary) {
         // getting path to GameData.plist
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         var path : String = ""
         if (paths.count > 0){
             let documentsDirectory = paths[0] as! String
-            path = documentsDirectory.stringByAppendingString("\(filename).plist")
+            path = documentsDirectory + "\(filename).plist"
         }
         
-        let success = dict.writeToFile(path, atomically: true)
+        let success = dict.write(toFile: path, atomically: true)
         if (success){
             NSLog("successful write!")
         } else {
@@ -178,13 +178,13 @@ class HeartbeatInfoView: UIView {
         }
     }
 
-    func didReceiveError(notification: NSNotification) {
+    func didReceiveError(_ notification: Notification) {
         NSLog("didReceiveError: \(notification)")
-        numHeartbeatsLabel.text = notification.userInfo!["message"] as? String
-        errorTextView.text = (notification.userInfo!["error"] as? NSError)?.localizedDescription
-        errorTextView.hidden = false
-        lastHeartbeatLabel.hidden = true
-        urlLabel.hidden = true
+        numHeartbeatsLabel.text = (notification as NSNotification).userInfo!["message"] as? String
+        errorTextView.text = ((notification as NSNotification).userInfo!["error"] as? NSError)?.localizedDescription
+        errorTextView.isHidden = false
+        lastHeartbeatLabel.isHidden = true
+        urlLabel.isHidden = true
         updateTimer.invalidate()
     }
 }

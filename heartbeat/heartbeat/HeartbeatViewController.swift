@@ -29,7 +29,7 @@ class HeartbeatViewController: UIViewController {
         
         self.navigationItem.title = "PCF Push Heartbeat Monitor"
         
-        let screenRect : CGRect = UIScreen.mainScreen().bounds
+        let screenRect : CGRect = UIScreen.main.bounds
         //Due to orientation weirdness, this can be wrong unless you check
         let screenWidth : CGFloat = min(screenRect.width, screenRect.height)
         let screenHeight : CGFloat = max(screenRect.width, screenRect.height)
@@ -38,24 +38,22 @@ class HeartbeatViewController: UIViewController {
         self.heartView = HeartVectorView.init(frame: CGRect(x: 0.0, y: 0.0, width: 200, height: 200))
         self.heartView.center = container.center
         container.addSubview(self.heartView)
-        container.backgroundColor = UIColor.whiteColor()
+        container.backgroundColor = UIColor.white
         view.addSubview(container)
         
         self.infoView = HeartbeatInfoView.init(frame: CGRect(x: 0.0, y: screenHeight - 100.0, width: container.frame.width, height: 100.0))
         container.addSubview(self.infoView)
         
-        NSNotificationCenter.defaultCenter()
-        
     }
     
-    override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self.infoView, selector: "didReceiveHeartbeat", name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self.heartView, selector: "beatHeart", name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self.infoView, selector: "didReceiveError:", name: "io.pivotal.ios.push.heartbeatmonitorReceiveError", object: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self.infoView, selector: #selector(HeartbeatInfoView.didReceiveHeartbeat), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat"), object: nil)
+        NotificationCenter.default.addObserver(self.heartView, selector: #selector(HeartVectorView.beatHeart), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat"), object: nil)
+        NotificationCenter.default.addObserver(self.infoView, selector: #selector(HeartbeatInfoView.didReceiveError), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self.infoView)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self.infoView)
     }
 
     override func didReceiveMemoryWarning() {
