@@ -22,14 +22,14 @@ import UIKit
 
 class HeartVectorView: UIView {
     
-    private let rightApex = CGPoint(x: 13.5, y: 0)
-    private let valley = CGPoint(x: 9, y: 3)
-    private let leftApex = CGPoint(x: 4.5, y: 0)
-    private let leftDistal = CGPoint(x: 0, y: 4.5)
-    private let tip = CGPoint(x: 9, y: 16)
-    private let rightDistal = CGPoint(x: 18, y: 4.5)
+    fileprivate let rightApex = CGPoint(x: 13.5, y: 0)
+    fileprivate let valley = CGPoint(x: 9, y: 3)
+    fileprivate let leftApex = CGPoint(x: 4.5, y: 0)
+    fileprivate let leftDistal = CGPoint(x: 0, y: 4.5)
+    fileprivate let tip = CGPoint(x: 9, y: 16)
+    fileprivate let rightDistal = CGPoint(x: 18, y: 4.5)
 
-    private let heartShape = CAShapeLayer()
+    fileprivate let heartShape = CAShapeLayer()
     
     var scale : CGFloat = 10.0
     
@@ -47,10 +47,10 @@ class HeartVectorView: UIView {
         setupComponents()
     }
     
-    private func setupComponents(){
-        heartShape.strokeColor = UIColor(red: 1.0, green: 0.27, blue: 0.27, alpha: 1.0).CGColor
-        heartShape.fillColor = UIColor(red: 0.87, green: 0.60, blue: 0.60, alpha: 1.0).CGColor
-        heartShape.path = UIBezierPath(rect: self.bounds).CGPath
+    fileprivate func setupComponents(){
+        heartShape.strokeColor = UIColor(red: 1.0, green: 0.27, blue: 0.27, alpha: 1.0).cgColor
+        heartShape.fillColor = UIColor(red: 0.87, green: 0.60, blue: 0.60, alpha: 1.0).cgColor
+        heartShape.path = UIBezierPath(rect: self.bounds).cgPath
         layer.addSublayer(heartShape)
     
         startUpdateLoop()
@@ -59,7 +59,7 @@ class HeartVectorView: UIView {
     
     //Drawing
     
-    private func bezierPathForControlPoints()->CGPathRef {
+    fileprivate func bezierPathForControlPoints()->CGPath {
         let path = UIBezierPath()
         
         let points = [
@@ -80,15 +80,15 @@ class HeartVectorView: UIView {
             CGPointRelativeTo(rightDistal, relativePoint: points[10]), CGPointRelativeTo(rightDistal, relativePoint: points[11]),
         ]
         
-        path.moveToPoint(rightApex)
-        path.addCurveToPoint(valley, controlPoint1: relPoints[0], controlPoint2: relPoints[1])
-        path.addCurveToPoint(leftApex, controlPoint1: relPoints[2], controlPoint2: relPoints[3])
-        path.addCurveToPoint(leftDistal, controlPoint1: relPoints[4], controlPoint2: relPoints[5])
-        path.addCurveToPoint(tip, controlPoint1: relPoints[6], controlPoint2: relPoints[7])
-        path.addCurveToPoint(rightDistal, controlPoint1: relPoints[8], controlPoint2: relPoints[9])
-        path.addCurveToPoint(rightApex, controlPoint1: relPoints[10], controlPoint2: relPoints[11])
+        path.move(to: rightApex)
+        path.addCurve(to: valley, controlPoint1: relPoints[0], controlPoint2: relPoints[1])
+        path.addCurve(to: leftApex, controlPoint1: relPoints[2], controlPoint2: relPoints[3])
+        path.addCurve(to: leftDistal, controlPoint1: relPoints[4], controlPoint2: relPoints[5])
+        path.addCurve(to: tip, controlPoint1: relPoints[6], controlPoint2: relPoints[7])
+        path.addCurve(to: rightDistal, controlPoint1: relPoints[8], controlPoint2: relPoints[9])
+        path.addCurve(to: rightApex, controlPoint1: relPoints[10], controlPoint2: relPoints[11])
         
-        path.applyTransform(CGAffineTransformMakeScale(self.scale, self.scale))
+        path.apply(CGAffineTransform(scaleX: self.scale, y: self.scale))
         
         let vWidth = (rightDistal.x - leftDistal.x)*self.scale;
         let vHeight = (tip.y - rightApex.y)*self.scale
@@ -96,9 +96,9 @@ class HeartVectorView: UIView {
         let yTranslate = (bounds.height - vHeight)/2
         
         
-        path.applyTransform(CGAffineTransformMakeTranslation(xTranslate, yTranslate))
+        path.apply(CGAffineTransform(translationX: xTranslate, y: yTranslate))
         
-        return path.CGPath
+        return path.cgPath
     }
     
     //Animation
@@ -118,10 +118,10 @@ class HeartVectorView: UIView {
         let animationTiming : CAMediaTimingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.8, 1, 1)
         animation.timingFunction = animationTiming
 
-        animation.removedOnCompletion = true
+        animation.isRemovedOnCompletion = true
         animation.fillMode = kCAFillModeForwards
         
-        self.layer.addAnimation(animation, forKey: "scale")
+        self.layer.add(animation, forKey: "scale")
         self.layer.anchorPoint = CGPoint(x: 0.5,y: 0.5)
         self.layer.contentsGravity = "center"
         
@@ -130,30 +130,30 @@ class HeartVectorView: UIView {
     
     //UI Interaction
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         beatHeart()
     }
     
     //Update Functions
     
-    private lazy var displayLink : CADisplayLink = {
-        let displayLink = CADisplayLink(target: self, selector: Selector("updateLoop"))
-        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+    fileprivate lazy var displayLink : CADisplayLink = {
+        let displayLink = CADisplayLink(target: self, selector: #selector(HeartVectorView.updateLoop))
+        displayLink.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
         return displayLink
         }()
     
-    private func startUpdateLoop() {
-        displayLink.paused = false
+    fileprivate func startUpdateLoop() {
+        displayLink.isPaused = false
     }
     
-    private func stopUpdateLoop() {
-        displayLink.paused = true
+    fileprivate func stopUpdateLoop() {
+        displayLink.isPaused = true
     }
 
     func updateLoop() {
         heartShape.path = bezierPathForControlPoints()
         if (alpha < 1.0){
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.alpha = 1.0
                 }
             )
