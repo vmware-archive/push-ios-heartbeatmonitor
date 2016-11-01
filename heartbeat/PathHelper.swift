@@ -21,10 +21,10 @@
 import Foundation
 import UIKit
 
-public func CGPointRelativeTo(_ originPoint : CGPoint, relativePoint : CGPoint)->CGPoint {
+public func CGPointRelativeTo(originPoint : CGPoint, relativePoint : CGPoint)->CGPoint {
     return CGPoint(x: originPoint.x + relativePoint.x, y: originPoint.y + relativePoint.y)
 
 }
-public func CGPointRelativeTo(_ originPoint : CGPoint, x : CGFloat, y : CGFloat)->CGPoint {
+public func CGPointRelativeTo(originPoint : CGPoint, x : CGFloat, y : CGFloat)->CGPoint {
     return CGPoint(x: originPoint.x + x, y: originPoint.y + y)
 }

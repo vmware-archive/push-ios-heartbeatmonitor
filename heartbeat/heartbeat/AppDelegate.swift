@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         // Register for push notifications with the Apple Push Notification Service (APNS).
@@ -42,27 +42,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If this line gives you a compiler error then you need to make sure you have updated
         // your Xcode to at least Xcode 6.0:
         //
-        if (application.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:)))) {
+        if (application.respondsToSelector(Selector("registerUserNotificationSettings:"))) {
             
             // iOS 8.0 +
-            let notificationTypes : UIUserNotificationType = [.alert, .badge, .sound]
-            let settings : UIUserNotificationSettings = UIUserNotificationSettings.init(types: notificationTypes, categories: nil);
+            let notificationTypes : UIUserNotificationType = [.Alert, .Badge, .Sound]
+            let settings : UIUserNotificationSettings = UIUserNotificationSettings.init(forTypes: notificationTypes, categories: nil);
             application.registerUserNotificationSettings(settings);
         
         } else {
             
             // < iOS 8.0
-            let notificationTypes : UIRemoteNotificationType = [.alert, .badge, .sound]
-            application.registerForRemoteNotifications(matching: notificationTypes);
+            let notificationTypes : UIRemoteNotificationType = [.Alert, .Badge, .Sound]
+            application.registerForRemoteNotificationTypes(notificationTypes);
         }
         
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         let mainViewController = HeartbeatViewController()
         let mainNavController = UINavigationController.init(rootViewController: mainViewController)
 
         mainNavController.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green: 167.0/255.0, blue: 157.0/255.0, alpha: 1.0)
-        mainNavController.navigationBar.barStyle = .black
+        mainNavController.navigationBar.barStyle = .Black
         
         window?.rootViewController = mainNavController
         window?.makeKeyAndVisible()
@@ -70,13 +70,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         NSLog("User Notification Settings")
         application.registerForRemoteNotifications();
     }
 
     // This method is called when APNS registration succeeds.
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         NSLog("APNS registration succeeded!");
     
         // APNS registration has succeeded and provided the APNS device token.  Start registration with PCF Push
@@ -92,10 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Optional: You can pass blocks to get callbacks after registration succeeds or fails.
 
-        let deviceAlias = UIDevice.current.name
+        let deviceAlias = UIDevice.currentDevice().name
 
         var myDict: NSDictionary?
-        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+        if let path = NSBundle.mainBundle().pathForResource("Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         
@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let dict = myDict {
             if let heartbeatTag : String = dict["Heartbeat Tag"] as? String {
                 subscribedTags = [heartbeatTag]
-                NSLog("\(subscribedTags!.first)) is the heartbeat tag")
+                NSLog("\(String(subscribedTags!.first as String!)) is the heartbeat tag")
             } else {
                 NSLog("Heartbeat Tag is nil")
             }
@@ -113,42 +113,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("Subscribed Tags: \(subscribedTags)")
         
         if subscribedTags != nil {
-            PCFPush.registerForPCFPushNotifications(withDeviceToken: deviceToken,
+            PCFPush.registerForPCFPushNotificationsWithDeviceToken(deviceToken,
                 tags: subscribedTags,
                 deviceAlias: deviceAlias,
                 areGeofencesEnabled: false, success: {
                     NSLog("Successfully registered for PCF push notifications. Device ID is \(PCFPush.deviceUuid())")
                 }, failure: {error in
                     NSLog("Error registering for PCF push notifications: \(error)")
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: self, userInfo: ["message":"Failed to register with PCF Push", "error": error])
+                    NSNotificationCenter.defaultCenter().postNotificationName("io.pivotal.ios.push.heartbeatmonitorReceiveError", object: self, userInfo: ["message":"Failed to register with PCF Push", "error": error])
                 })
         }
     }
     
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error){
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError){
         NSLog("Failed to register!")
         NSLog(error.localizedDescription)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: self, userInfo: ["message":"Failed to register with APNS", "error": error])
+        NSNotificationCenter.defaultCenter().postNotificationName("io.pivotal.ios.push.heartbeatmonitorReceiveError", object: self, userInfo: ["message":"Failed to register with APNS", "error": error])
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]){
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]){
         self.handleRemoteNotification(userInfo)
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void){
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void){
         self.handleRemoteNotification(userInfo)
-        PCFPush.didReceiveRemoteNotification(userInfo, completionHandler: {(wasIgnored: Bool, fetchResult: UIBackgroundFetchResult, error: Error?) -> Void in
+        PCFPush.didReceiveRemoteNotification(userInfo, completionHandler: {(wasIgnored: Bool, fetchResult: UIBackgroundFetchResult, error: NSError!) -> Void in
                 completionHandler(fetchResult)
             }
         )
     }
     
-    func handleRemoteNotification(_ userInfo: [AnyHashable: Any]?) {
+    func handleRemoteNotification(userInfo: [NSObject : AnyObject]?) {
         if let userDict = userInfo! as NSDictionary? {
             if (userDict["pcf.push.heartbeat.sentToDeviceAt"] != nil){
                 NSLog("Received heartbeat push: \(userInfo!)")
-                let notification = Notification(name: Notification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat"), object: nil)
-                NotificationCenter.default.post(notification)
+                let notification = NSNotification(name: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat", object: nil)
+                NSNotificationCenter.defaultCenter().postNotification(notification)
             } else {
                 NSLog("Received non-heartbeat push: \(userInfo!)")
             }
