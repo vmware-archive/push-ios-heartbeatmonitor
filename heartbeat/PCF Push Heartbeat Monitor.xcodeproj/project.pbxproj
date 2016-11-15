@@ -136,6 +136,7 @@
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = BVZYXK966R;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -224,7 +225,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = BVZYXK966R;
+				DEVELOPMENT_TEAM = BRF6EC39EM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -272,7 +273,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = BVZYXK966R;
+				DEVELOPMENT_TEAM = BRF6EC39EM;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -297,6 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "PCF Push Heartbeat Monitor.entitlements";
+				DEVELOPMENT_TEAM = BVZYXK966R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -312,6 +314,8 @@
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
 				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
+				PROVISIONING_PROFILE = "af6bf3fb-2675-4c10-9584-597444cf590b";
+				PROVISIONING_PROFILE_SPECIFIER = "Pivotal CF Mobile Services Heartbeat Monitor CI";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -321,6 +325,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "PCF Push Heartbeat Monitor.entitlements";
+				DEVELOPMENT_TEAM = BVZYXK966R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -332,6 +337,8 @@
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
 				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
+				PROVISIONING_PROFILE = "af6bf3fb-2675-4c10-9584-597444cf590b";
+				PROVISIONING_PROFILE_SPECIFIER = "Pivotal CF Mobile Services Heartbeat Monitor CI";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
