@@ -11,10 +11,10 @@
         <true/>
 
         <key>uploadBitcode</key>
-        <false/>
+        <true/>
 
         <key>compileBitcode</key>
-        <false/>
+        <true/>
 
 </dict>
 </plist>
