@@ -35,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		5D6537AF1DBFB55100A7C25F /* PCF Push Heartbeat Monitor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PCF Push Heartbeat Monitor.entitlements"; sourceTree = "<group>"; };
+		AE48C1C11DE78BAD00BD47EB /* heartbeat-config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "heartbeat-config.xcconfig"; sourceTree = "<group>"; };
 		F1421F891C3AE8A3004E8E7C /* PCFPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PCFPush.framework; path = heartbeat/PCFPush.framework; sourceTree = "<group>"; };
 		F198C7131C2850B5001E84CC /* PCF Push Heartbeat Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PCF Push Heartbeat Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F198C7161C2850B5001E84CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 				F1E76EDF1C3D6D2E000A40E5 /* LaunchScreen.storyboard */,
 				F198C7221C2850B5001E84CC /* Info.plist */,
 				F1FAC0441C3AD300007393EC /* Pivotal.plist */,
+				AE48C1C11DE78BAD00BD47EB /* heartbeat-config.xcconfig */,
 			);
 			path = heartbeat;
 			sourceTree = "<group>";
@@ -315,8 +317,6 @@
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
 				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
-				PROVISIONING_PROFILE = "af6bf3fb-2675-4c10-9584-597444cf590b";
-				PROVISIONING_PROFILE_SPECIFIER = "Pivotal CF Mobile Services Heartbeat Monitor CI";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -339,8 +339,6 @@
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pivotal.ios.push.heartbeat;
 				PRODUCT_NAME = "PCF Push Heartbeat Monitor";
-				PROVISIONING_PROFILE = "af6bf3fb-2675-4c10-9584-597444cf590b";
-				PROVISIONING_PROFILE_SPECIFIER = "Pivotal CF Mobile Services Heartbeat Monitor CI";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

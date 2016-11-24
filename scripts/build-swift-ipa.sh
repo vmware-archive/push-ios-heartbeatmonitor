@@ -32,6 +32,7 @@ fi
 
 # Produce the build archive
 xcodebuild \
+  -xcconfig heartbeat/heartbeat/heartbeat-config.xcconfig \
   -project "heartbeat/PCF Push Heartbeat Monitor.xcodeproj" \
   -scheme "PCF Push Heartbeat Monitor" \
   -archivePath build/PCFPushHeartbeatMonitor.xcarchive \
@@ -40,6 +41,7 @@ xcodebuild \
 # Exports the build archive as an IPA file
 xcodebuild \
   -exportArchive \
+  -xcconfig heartbeat/heartbeat/heartbeat-config.xcconfig \
   -archivePath build/PCFPushHeartbeatMonitor.xcarchive \
   -exportPath build/PCFPushHeartbeatMonitor \
   -exportOptionsPlist scripts/export-options.plist

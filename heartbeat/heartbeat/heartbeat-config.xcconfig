@@ -1,0 +1,9 @@
+//
+//  heartbeat-config.xcconfig
+//  PCF Push Heartbeat Monitor
+//
+//  Created by Pivotal on 2016-11-24.
+//  Copyright © 2016 Pivotal. All rights reserved.
+//
+
+PROVISIONING_PROFILE_SPECIFIER = Pivotal CF Mobile Services Heartbeat Monitor CI
