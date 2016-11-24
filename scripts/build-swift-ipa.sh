@@ -2,11 +2,18 @@
 
 set -ex
 
-ENV=$1
+if [ "$1" != "" ]; then
+  if [ "$2" != "" ]; then
+    ROUTE=$1
+    HOST=$2
+    FULL_ROUTE=${1}.${2}
+  else
+    # Default host is cf-app.com
+    ENV=$1
+    FULL_ROUTE=push-api.${ENV}.cf-app.com
+  fi
 
-if [ "$ENV" != "" ]; then
-
-  echo "### Modifying build for the $ENV environment."
+  echo "### Modifying build for the $FULL_ROUTE environment."
 
   # Replace the environment name in the Info.plist file
   sed -i "" "/<key>NSExceptionDomains<\\/key>/{ # Find the NSExceptionDomains key
@@ -16,7 +23,7 @@ if [ "$ENV" != "" ]; then
 
     # Change the next line
     c\\
-    \\                       <key>push-api.${ENV}.cf-app.com</key>
+    \\                       <key>${FULL_ROUTE}</key>
     }" heartbeat/heartbeat/Info.plist
 
   # Replace the environment name in the Pivotal.plist file
@@ -26,7 +33,7 @@ if [ "$ENV" != "" ]; then
 
     # Change the next line
     c\\
-    \\       <string>https://push-api.${ENV}.cf-app.com</string>
+    \\       <string>https://${FULL_ROUTE}</string>
     }" heartbeat/heartbeat/Pivotal.plist
 fi
 
