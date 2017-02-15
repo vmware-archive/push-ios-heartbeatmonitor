@@ -10,7 +10,7 @@ if [ "$1" != "" ]; then
   else
     # Default host is cf-app.com
     ENV=$1
-    FULL_ROUTE=push-api.${ENV}.cf-app.com
+    FULL_ROUTE=push-api.${ENV}.push.gcp.cf-app.com
   fi
 
   echo "### Modifying build for the $FULL_ROUTE environment."
