@@ -73,7 +73,7 @@ class HeartbeatInfoView: UIView {
         urlLabel.textColor = textColor
         urlLabel.textAlignment = NSTextAlignment.center
         urlLabel.accessibilityIdentifier = "urlLabel"
-        getServiceUrl()
+        updateServiceUrl()
         self.addSubview(urlLabel)
         
         errorTextView.frame = CGRect(origin: CGPoint(x: 0.0, y: numHeartbeatsLabel.frame.maxY), size: CGSize(width: frame.width, height: labelHeight*3))
@@ -124,15 +124,13 @@ class HeartbeatInfoView: UIView {
         writeDictionaryToPlist("/HeartbeatData", dict: myDict)
     }
     
-    func getServiceUrl(){
-        let myDict: NSDictionary? = dictionaryFromBundledPlist("Pivotal")
-        if (myDict != nil){
-            if let tempUrl = myDict!["pivotal.push.serviceUrl"] as! String?{
-                url = tempUrl
-                urlLabel.text = "Monitoring \(url)"
-            } else {
-                urlLabel.text = "Service url was empty"
-            }
+    func updateServiceUrl(){
+        let url = EndpointHelper.getCurrentApiUrl()
+        if !url.isEmpty {
+            urlLabel.text = "Monitoring \(url)"
+        } else {
+            urlLabel.text = "Service url was empty"
+            
         }
     }
     

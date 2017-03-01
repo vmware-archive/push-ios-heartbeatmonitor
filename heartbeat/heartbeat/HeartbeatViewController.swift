@@ -19,15 +19,20 @@
 //
 
 import UIKit
+import PCFPush
 
 class HeartbeatViewController: UIViewController {
     
     var heartView: HeartVectorView!
     var infoView: HeartbeatInfoView!
+    var apiUrlButton: UIBarButtonItem!
+    var apiUrlAlert: UIAlertController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "PCF Push Heartbeat Monitor"
+        
         
         let screenRect : CGRect = UIScreen.main.bounds
         //Due to orientation weirdness, this can be wrong unless you check
@@ -44,12 +49,34 @@ class HeartbeatViewController: UIViewController {
         self.infoView = HeartbeatInfoView.init(frame: CGRect(x: 0.0, y: screenHeight - 100.0, width: container.frame.width, height: 100.0))
         container.addSubview(self.infoView)
         
+        self.apiUrlAlert = getApiUrlDialog()
+        
+        self.apiUrlButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(HeartbeatViewController.showApiUrlDialog))
+        
+        self.navigationItem.setRightBarButton(self.apiUrlButton, animated: true)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.registerForHeartbeats();
+        
+        if EndpointHelper.getCurrentApiUrl().isEmpty {
+            self.showApiUrlDialog()
+        }
+    }
+    
+    func registerForHeartbeats() {
         NotificationCenter.default.addObserver(self.infoView, selector: #selector(HeartbeatInfoView.didReceiveHeartbeat), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat"), object: nil)
         NotificationCenter.default.addObserver(self.heartView, selector: #selector(HeartVectorView.beatHeart), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceivedHeartbeat"), object: nil)
         NotificationCenter.default.addObserver(self.infoView, selector: #selector(HeartbeatInfoView.didReceiveError), name: NSNotification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: nil)
+    }
+    
+    func showApiUrlDialog() {
+        self.present(apiUrlAlert, animated: true) {
+            let textField = (self.apiUrlAlert.textFields?.first)!
+            textField.text = EndpointHelper.getCurrentApiUrl()
+            self.textFieldDidChange(textField)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,8 +85,52 @@ class HeartbeatViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    func getApiUrlDialog() -> UIAlertController {
+        let alert = UIAlertController.init(title: "Push Service URL", message: "Set your push service url", preferredStyle: UIAlertControllerStyle.alert);
+        let saveAction = UIAlertAction.init(title: "Okay", style: .default) { (alertAction: UIAlertAction) in
+            
+            let newUrl = (alert.textFields?.first!.text)!
+            if newUrl == EndpointHelper.getCurrentApiUrl() {
+                NSLog("Api url unchanged. Still %@\n", newUrl)
+                UIApplication.shared.registerForRemoteNotifications()
+                return
+            }
+            
+            NSLog("Unregistering from  %@", EndpointHelper.getCurrentApiUrl())
+            
+            PCFPush.unregisterFromPCFPushNotifications(success: {
+                NSLog("Successfully unregistered from push")
+                self.updateEndpointUrl(url: newUrl)
+            }, failure: { (error: Error?) in
+                NSLog("Error unregistering from push. %@", error.debugDescription)
+                self.updateEndpointUrl(url: newUrl)
+            })
+            
+        }
+        
+        saveAction.isEnabled = false;
+        alert.addAction(saveAction)
+        
+        alert.addTextField { (textfield: UITextField) in
+            textfield.placeholder = "Push service url"
+            textfield.keyboardType = .URL
+            textfield.addTarget(self, action: #selector(HeartbeatViewController.textFieldDidChange(_:)), for: .editingChanged)
+        }
+
+        
+        return alert;
+    }
+    
+    private func updateEndpointUrl(url: String) {
+        EndpointHelper.saveApiUrl(url: url)
+        UIApplication.shared.registerForRemoteNotifications()
+        self.infoView.updateServiceUrl()
+    }
+    
+    func textFieldDidChange(_ textField: UITextField) {
+        apiUrlAlert.actions.first!.isEnabled = !(textField.text?.isEmpty)!
+    }
 }
 

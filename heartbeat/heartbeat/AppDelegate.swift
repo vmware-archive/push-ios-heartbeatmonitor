@@ -20,6 +20,7 @@
 
 import UIKit
 import PCFPush
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -55,7 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         NSLog("User Notification Settings")
-        application.registerForRemoteNotifications();
+        if !EndpointHelper.getCurrentApiUrl().isEmpty {
+            application.registerForRemoteNotifications();
+        }
     }
 
     // This method is called when APNS registration succeeds.
@@ -95,6 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("Device Token: \(deviceToken)")
         NSLog("Subscribed Tags: \(subscribedTags)")
         
+        let serviceInfo = PCFPushServiceInfo.init(api: EndpointHelper.getCurrentApiUrl(), devPlatformUuid: nil, devPlatformSecret: nil, prodPlatformUuid: nil, prodPlatformSecret: nil)
+        
+        PCFPush.setPushServiceInfo(serviceInfo);
+        
         if subscribedTags != nil {
             PCFPush.registerForPCFPushNotifications(withDeviceToken: deviceToken,
                 tags: subscribedTags,
@@ -103,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     NSLog("Successfully registered for PCF push notifications. Device ID is \(PCFPush.deviceUuid())")
                 }, failure: {error in
                     NSLog("Error registering for PCF push notifications: \(error)")
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: self, userInfo: ["message":"Failed to register with PCF Push", "error": error])
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "io.pivotal.ios.push.heartbeatmonitorReceiveError"), object: self, userInfo: ["message":"Failed to register with PCF Push", "error": error!])
                 })
         }
     }
@@ -120,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void){
         self.handleRemoteNotification(userInfo)
+        
         PCFPush.didReceiveRemoteNotification(userInfo, completionHandler: {(wasIgnored: Bool, fetchResult: UIBackgroundFetchResult, error: Error?) -> Void in
                 completionHandler(fetchResult)
             }
