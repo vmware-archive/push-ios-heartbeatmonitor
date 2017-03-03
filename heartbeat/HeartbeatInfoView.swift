@@ -127,8 +127,14 @@ class HeartbeatInfoView: UIView {
     func updateServiceUrl(){
         let url = EndpointHelper.getCurrentApiUrl()
         if !url.isEmpty {
+            errorTextView.isHidden = true
+            lastHeartbeatLabel.isHidden = false
+            urlLabel.isHidden = false
             urlLabel.text = "Monitoring \(url)"
         } else {
+            errorTextView.isHidden = true
+            lastHeartbeatLabel.isHidden = false
+            urlLabel.isHidden = false
             urlLabel.text = "Service url was empty"
             
         }
