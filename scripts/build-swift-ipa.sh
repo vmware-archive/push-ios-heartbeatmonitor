@@ -16,7 +16,7 @@ if [ "$ENV" != "" ]; then
 
     # Change the next line
     c\\
-    \\                       <key>push-api.${ENV}.cf-app.com</key>
+    \\                       <key>push-api.${ENV}.push.gcp.cf-app.com</key>
     }" heartbeat/heartbeat/Info.plist
 
   # Replace the environment name in the Pivotal.plist file
@@ -26,7 +26,7 @@ if [ "$ENV" != "" ]; then
 
     # Change the next line
     c\\
-    \\       <string>https://push-api.${ENV}.cf-app.com</string>
+    \\       <string>https://push-api.${ENV}.push.gcp.cf-app.com</string>
     }" heartbeat/heartbeat/Pivotal.plist
 fi
 
