@@ -4,7 +4,7 @@ The Heartbeat Monitor was designed to help PCF operators ensure their Push Notif
 
 ## Pre-requisites
 
-This app requires release v1.5.0+ of the [PCF Push Notification Tile](https://network.pivotal.io/products/push-notification-service#/releases/) to work. Heartbeat App will automatically be installed in your push-service-instance. 
+This app requires release v1.7+ of the [PCF Push Notification Tile](https://network.pivotal.io/products/push-notification-service#/releases/) to work. Heartbeat App will automatically be installed in your push-service-instance. 
 
 __Note:__ Make sure you have added a valid p12 certificate to your iOS platform and that the platform mode matches that certificate.
 
